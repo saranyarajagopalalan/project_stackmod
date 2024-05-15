@@ -1,3 +1,4 @@
+import 'package:ecommerce/utils/color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -33,16 +34,17 @@ class _ImageListWidgetState extends State<ImageListWidget> {
                   margin: const EdgeInsets.only(top: 5, right: 5, left: 5),
                   width: MediaQuery.of(context).size.width / 7,
                   decoration: BoxDecoration(
-                      color:
-                          current == index ? Colors.orange : Colors.grey[200],
+                      color: current == index
+                          ? parseColor("#f16b26")
+                          : Colors.grey[200],
                       borderRadius: BorderRadius.circular(10)),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
                         widget.imageList[index],
-                        width: 25,
-                        height: 25,
+                        width: 20,
+                        height: 20,
                         color:
                             current == index ? Colors.white : Colors.grey[750],
                       )

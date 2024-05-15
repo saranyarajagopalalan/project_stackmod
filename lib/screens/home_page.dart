@@ -1,4 +1,5 @@
 import 'package:ecommerce/screens/details_page.dart';
+import 'package:ecommerce/utils/color.dart';
 import 'package:ecommerce/utils/image_list_widgets.dart';
 import 'package:ecommerce/utils/textdata.dart';
 import 'package:flutter/cupertino.dart';
@@ -56,7 +57,7 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 20.0, right: 10),
+                  padding: const EdgeInsets.only(top: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -148,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                                         onPressed: () {},
                                         child: AppText(
                                           data: "Get now",
-                                          color: Colors.orange,
+                                          color: parseColor("#f16b26"),
                                         ))),
                                 Positioned(
                                     height: 100,
@@ -182,7 +183,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       AppText(
                         data: "SEE ALL",
-                        color: Colors.red,
+                        color: parseColor("#f16b26"),
                         size: 9,
                         fw: FontWeight.w600,
                       )
@@ -203,8 +204,8 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Row(
                         children: [
-                          stack_img_content("assets/images/watch_1.png",
-                              "Apple Watch - M2", "\$140", "\$200", context),
+                          stack_img_content(pNames[1], "Apple Watch - M2",
+                              "\$140", "\$200", context),
                           SizedBox(
                             width: 10,
                           ),
@@ -236,10 +237,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
-  
-
-
 }
 
 GestureDetector stack_img_content(String img, String title, String subtitle1,
@@ -253,11 +250,12 @@ GestureDetector stack_img_content(String img, String title, String subtitle1,
             subtitle2: subtitle2))),
     child: Stack(children: [
       Container(
-          height: MediaQuery.of(context).size.height / 2.9,
-          width: MediaQuery.of(context).size.width / 2.2,
+          height: MediaQuery.of(context).size.height / 3,
+          width: MediaQuery.of(context).size.width / 2.25,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20), color: Colors.grey[100]),
           child: Column(
+            // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row_icon_discounbox(),
               Container(
@@ -274,11 +272,12 @@ GestureDetector stack_img_content(String img, String title, String subtitle1,
               ),
               Positioned(
                 top: 50,
-                bottom: 10,
-                right: 10,
-                left: 10,
+                // bottom: 5,
+                // right: 10,
+                // left: 10,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 10.0, right: 10),
+                  padding:
+                      const EdgeInsets.only(left: 5.0, right: 5, bottom: 3),
                   child: Container(
                     decoration: const BoxDecoration(
                         color: Colors.white,
@@ -287,7 +286,7 @@ GestureDetector stack_img_content(String img, String title, String subtitle1,
                           bottomRight: Radius.circular(10),
                         )),
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
+                      padding: const EdgeInsets.only(left: 2.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,

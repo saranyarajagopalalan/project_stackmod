@@ -3,6 +3,7 @@ import 'dart:js';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce/screens/cart.dart';
+import 'package:ecommerce/utils/color.dart';
 import 'package:ecommerce/utils/image_list_widgets.dart';
 import 'package:ecommerce/utils/textdata.dart';
 import 'package:flutter/cupertino.dart';
@@ -50,8 +51,10 @@ class _DetailsPageState extends State<DetailsPage> {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: Colors.grey[100],
-            ),
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(150),
+                    bottomRight: Radius.circular(150))),
             height: MediaQuery.of(context).size.height / 2.4,
             width: MediaQuery.of(context).size.width / 1,
             child: CarouselSlider(items: [
@@ -59,11 +62,6 @@ class _DetailsPageState extends State<DetailsPage> {
                 "${widget.img}",
                 fit: BoxFit.cover,
               ),
-              Image.asset(
-                "${widget.img}",
-                fit: BoxFit.cover,
-                width: MediaQuery.of(context).size.width / 0,
-              )
             ], options: CarouselOptions(autoPlay: true, aspectRatio: 2)),
           ),
           Align(
@@ -79,7 +77,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     spacing: 10,
                     dotHeight: 8,
                     dotWidth: 8,
-                    activeDotColor: Color.fromARGB(255, 247, 57, 4),
+                    activeDotColor: Colors.deepOrange,
                     dotColor: Colors.white)),
           ),
           Positioned(
@@ -93,8 +91,8 @@ class _DetailsPageState extends State<DetailsPage> {
                       // color: Colors.white,
                       borderRadius: BorderRadius.circular(20)),
                   child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 25, right: 25, top: 25, bottom: 55),
+                    padding:
+                        const EdgeInsets.only(left: 25, top: 25, bottom: 55),
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,11 +153,14 @@ class _DetailsPageState extends State<DetailsPage> {
                                   )
                                 ],
                               ),
-                              AppText(
-                                data: "Available in stock",
-                                color: Colors.black,
-                                size: 10,
-                                fw: FontWeight.w600,
+                              Padding(
+                                padding: const EdgeInsets.only(right: 25.0),
+                                child: AppText(
+                                  data: "Available in stock",
+                                  color: Colors.black,
+                                  size: 10,
+                                  fw: FontWeight.w600,
+                                ),
                               )
                             ],
                           ),
@@ -178,17 +179,20 @@ class _DetailsPageState extends State<DetailsPage> {
                               SizedBox(
                                 height: 10,
                               ),
-                              AppText(
-                                data:
-                                    "The watch i got was really beautiful and trendy.It was the Ben 10 Watch, which i am very font of. it is red in color and has beautiful Ben 10 pictures.",
-                                color: Colors.black,
-                                fw: FontWeight.normal,
-                                size: 10,
+                              Padding(
+                                padding: const EdgeInsets.only(right: 25.0),
+                                child: AppText(
+                                  data:
+                                      "The watch i got was really beautiful and trendy.It was the Ben 10 Watch, which i am very font of. it is red in color and has beautiful Ben 10 pictures.",
+                                  color: Colors.black,
+                                  fw: FontWeight.normal,
+                                  size: 10,
+                                ),
                               ),
                             ],
                           ),
                           SizedBox(
-                            height: 5,
+                            height: 15,
                           ),
                           Container(
                             height: 50,
@@ -234,7 +238,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: current == index
-                                                    ? Colors.orange
+                                                    ? parseColor("#f16b26")
                                                     : Colors.black,
                                               ),
                                             )
@@ -242,7 +246,11 @@ class _DetailsPageState extends State<DetailsPage> {
                                         )));
                               },
                             ),
-                          )
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          AppText(data: " ")
                         ],
                       ),
                     ),
@@ -271,7 +279,7 @@ Widget _navBar(BuildContext context) {
         .push(MaterialPageRoute(builder: (context) => CartPage())),
     child: Container(
       height: 40,
-      margin: const EdgeInsets.only(right: 10, left: 10, bottom: 10),
+      margin: const EdgeInsets.only(right: 25, left: 25, bottom: 10),
       decoration: BoxDecoration(
           color: Colors.orange[800],
           borderRadius: BorderRadius.circular(10),

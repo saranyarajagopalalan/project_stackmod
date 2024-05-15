@@ -1,5 +1,7 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:ecommerce/screens/cart.dart';
 import 'package:ecommerce/screens/home_page.dart';
+import 'package:ecommerce/utils/color.dart';
 import 'package:ecommerce/utils/textdata.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +14,7 @@ class BottomNavbar extends StatefulWidget {
 
 class _BottomNavbarState extends State<BottomNavbar> {
   int selected_index = 0;
-  final screens = [HomePage(), Container(), Container(), Container()];
+  final screens = [HomePage(), Container(), CartPage(), Container()];
   late PageController _pageController;
 
   @override
@@ -64,22 +66,22 @@ class _BottomNavbarState extends State<BottomNavbar> {
                 data: "Home",
                 fw: FontWeight.normal,
               ),
-              activeColor: Colors.orange,
+              activeColor: parseColor("#f16b26"),
               inactiveColor: Colors.grey),
           BottomNavyBarItem(
               icon: Icon(Icons.favorite),
               title: Text("Like"),
-              activeColor: Colors.orange,
+              activeColor: parseColor("#f16b26"),
               inactiveColor: Colors.grey),
           BottomNavyBarItem(
               icon: Icon(Icons.card_travel),
               title: Text("card_travel"),
-              activeColor: Colors.orange,
+              activeColor: parseColor("#f16b26"),
               inactiveColor: Colors.grey),
           BottomNavyBarItem(
             icon: Icon(Icons.person),
             title: Text("Profile"),
-            activeColor: Colors.orange,
+            activeColor: parseColor("#f16b26"),
             inactiveColor: Colors.grey,
           )
         ],
