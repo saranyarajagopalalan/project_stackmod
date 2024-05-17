@@ -1,10 +1,13 @@
 import 'package:ecommerce/screens/details_page.dart';
+import 'package:ecommerce/services/remote_services.dart';
 import 'package:ecommerce/utils/color.dart';
 import 'package:ecommerce/utils/image_list_widgets.dart';
 import 'package:ecommerce/utils/textdata.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
+import '../model/product_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,6 +17,31 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // late Future<List<ProductModel>> products;
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   products = getData();
+  // }
+  List<ProductModel>? products;
+  var isLoaded = false;
+
+  @override
+  void initState() {
+    //fetch data from api
+    super.initState();
+    getdata();
+  }
+
+  getdata() async {
+    products = await RemoteService().getProduct();
+    if (products != null) {
+      setState(() {
+        isLoaded = true;
+      });
+    }
+  }
+
   int current = 0;
   final List<String> IconImageList = [
     "assets/images/icon1.png",
@@ -48,7 +76,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.only(left: 15.0),
+        padding: const EdgeInsets.all(15.0),
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
@@ -230,6 +258,170 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: 10,
+                ),
+                Visibility(
+                  visible: isLoaded,
+                  child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          mainAxisExtent: 245),
+                      shrinkWrap: true,
+                      itemCount: products!.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => DetailsPage(
+                                      img: products![index].image,
+                                      title: products![index].title,
+                                      description: products![index].description,
+                                      rating: '${products![index].rating.rate}',
+                                      price: '\$${products![index].price}',
+                                      sub_price:
+                                          '\$${products![index].price}'))),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.grey[100]),
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 10.0, right: 2, left: 2, bottom: 0),
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 5.0, right: 5),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          height: 25,
+                                          width: 70,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              color: Colors.white),
+                                          child: Center(
+                                            child: AppText(
+                                              data: "30% OFF",
+                                              color: Colors.black,
+                                              size: 9,
+                                              fw: FontWeight.w800,
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          child: IconButton(
+                                              onPressed: () {},
+                                              icon: Icon(
+                                                Icons.favorite,
+                                                color: Colors.grey,
+                                              )),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Image.network(
+                                      products![index].image,
+                                      fit: BoxFit.contain,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              5,
+                                      width:
+                                          MediaQuery.of(context).size.width / 2,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  Positioned(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 5.0, right: 5, bottom: 3),
+                                      child: Expanded(
+                                        child: Container(
+                                          height: 50,
+                                          decoration: const BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.only(
+                                                bottomLeft: Radius.circular(10),
+                                                bottomRight:
+                                                    Radius.circular(10),
+                                              )),
+                                          child: Expanded(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxLines: 1,
+                                                    style: TextStyle(
+                                                      color: Colors.grey,
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                    ),
+                                                    products![index].title),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    AppText(
+                                                      data:
+                                                          '\$${products![index].price}',
+                                                      color: Colors.black,
+                                                      fw: FontWeight.w600,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top: 3.0),
+                                                      child: Text(
+                                                        '\$${products![index].price}',
+                                                        style: TextStyle(
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .lineThrough,
+                                                          fontSize: 10,
+                                                          color: Colors.black
+                                                              .withOpacity(0.4),
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      }),
+                  replacement: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
               ],
             ),
           ),

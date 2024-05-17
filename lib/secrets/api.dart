@@ -1,5 +1,3 @@
-class Apiendpoints {
-  final baseurl = "https://fakestoreapi.com/products";
+class Config {
+  static String baseurl = "https://fakestoreapi.com/products";
 }
-
-
